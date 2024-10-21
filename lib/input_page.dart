@@ -1,8 +1,13 @@
+import 'package:bmi_calculator/blank_widget.dart';
+import 'package:bmi_calculator/icon_context.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const bottomContainerHeight = 80.0;
-const blankColor = Color.fromARGB(255, 82, 90, 131);
+const activeBlankColor = Color.fromARGB(255, 82, 90, 131);
+const inactiveBlankColor = Color.fromARGB(255, 33, 40, 73);
+
+enum Gender { male, female, kod }
 
 class InputPage extends StatefulWidget {
   const InputPage({super.key});
@@ -12,6 +17,8 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Gender selectedGender = Gender.male;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,40 +32,60 @@ class _InputPageState extends State<InputPage> {
       ),
       body: Column(
         children: [
-          const Expanded(
+          Expanded(
             //firs ROW
             child: Row(
               children: [
                 Expanded(
-                    child: Blank_(
-                  blankchild: GenderForm(
-                    genderIcon: FontAwesomeIcons.mars,
-                    genderChoice: "MALE",
+                    child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedGender = Gender.male;
+                    });
+                  },
+                  child: Blank_(
+                    blankchild: const GenderForm(
+                      genderIcon: FontAwesomeIcons.mars,
+                      genderChoice: "MALE",
+                    ),
+                    colour: selectedGender == Gender.male
+                        ? activeBlankColor
+                        : inactiveBlankColor,
                   ),
-                  colour: blankColor,
                 )),
                 Expanded(
                   ////////////////second ROW
-                  child: Blank_(
-                    blankchild: GenderForm(
-                      genderChoice: "FEMALE",
-                      genderIcon: FontAwesomeIcons.venus,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedGender = Gender.female;
+                      });
+                    },
+                    child: Blank_(
+                      blankchild: const GenderForm(
+                        genderChoice: "FEMALE",
+                        genderIcon: FontAwesomeIcons.venus,
+                      ),
+                      colour: selectedGender == Gender.female
+                          ? activeBlankColor
+                          : inactiveBlankColor,
                     ),
-                    colour: blankColor,
                   ),
                 ),
               ],
             ),
-          ),
+          ), ////////////// Top gender Select area
           const Expanded(
-              child: Blank_(blankchild: Column(), colour: blankColor)),
+              child: Blank_(blankchild: Column(), colour: inactiveBlankColor)),
           const Expanded(
             child: Row(
               children: [
                 Expanded(
-                    child: Blank_(blankchild: Column(), colour: blankColor)),
+                    child:
+                        Blank_(blankchild: Column(), colour: activeBlankColor)),
                 Expanded(
-                    child: Blank_(blankchild: Column(), colour: blankColor)),
+                    child:
+                        Blank_(blankchild: Column(), colour: activeBlankColor)),
               ],
             ),
           ),
@@ -74,52 +101,6 @@ class _InputPageState extends State<InputPage> {
               )))
         ],
       ),
-    );
-  }
-}
-
-class GenderForm extends StatelessWidget {
-  const GenderForm({
-    super.key,
-    required this.genderIcon,
-    required this.genderChoice,
-  });
-  final IconData genderIcon;
-  final String genderChoice;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          genderIcon as IconData?,
-          size: 80.0,
-        ),
-        const SizedBox(
-          height: 15,
-        ),
-        Text(
-          genderChoice,
-          style: const TextStyle(color: Colors.black, fontSize: 29),
-        )
-      ],
-    );
-  }
-}
-
-class Blank_ extends StatelessWidget {
-  const Blank_({super.key, required this.colour, required this.blankchild});
-  final Color colour;
-  final Widget blankchild;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: blankchild,
-      margin: const EdgeInsets.all(20),
-      decoration:
-          BoxDecoration(color: colour, borderRadius: BorderRadius.circular(30)),
     );
   }
 }
