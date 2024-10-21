@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Blank_ extends StatelessWidget {
-  const Blank_({super.key, required this.colour, required this.blankchild});
+class Cards extends StatelessWidget {
+  const Cards({super.key, required this.colour, required this.blankchild});
   final Color colour;
   final Widget blankchild;
 

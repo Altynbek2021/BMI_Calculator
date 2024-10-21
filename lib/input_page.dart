@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/ResultPage.dart';
 import 'package:bmi_calculator/blank_widget.dart';
 import 'package:bmi_calculator/constants.dart';
 import 'package:bmi_calculator/icon_context.dart';
@@ -14,6 +15,8 @@ class InputPage extends StatefulWidget {
 }
 
 int height = 160;
+int weight = 60;
+int age = 18;
 
 class _InputPageState extends State<InputPage> {
   Gender selectedGender = Gender.male;
@@ -43,7 +46,7 @@ class _InputPageState extends State<InputPage> {
                       selectedGender = Gender.male;
                     });
                   },
-                  child: Blank_(
+                  child: Cards(
                     blankchild: const GenderForm(
                       genderIcon: FontAwesomeIcons.mars,
                       genderChoice: "MALE",
@@ -61,7 +64,7 @@ class _InputPageState extends State<InputPage> {
                         selectedGender = Gender.female;
                       });
                     },
-                    child: Blank_(
+                    child: Cards(
                       blankchild: const GenderForm(
                         genderChoice: "FEMALE",
                         genderIcon: FontAwesomeIcons.venus,
@@ -76,11 +79,11 @@ class _InputPageState extends State<InputPage> {
             ),
           ), ////////////// Top gender Select area
           Expanded(
-              child: Blank_(
+              child: Cards(
                   blankchild: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Height",
                         style: klableTextstyle,
                       ),
@@ -93,7 +96,7 @@ class _InputPageState extends State<InputPage> {
                             height.toString(),
                             style: knumLblTextstyle,
                           ),
-                          Text("cm", style: klableTextstyle)
+                          const Text("cm", style: klableTextstyle)
                         ],
                       ),
                       Slider(
@@ -110,30 +113,134 @@ class _InputPageState extends State<InputPage> {
                     ],
                   ),
                   colour: activeBlankColor)),
-          const Expanded(
+          Expanded(
             child: Row(
               children: [
                 Expanded(
-                    child:
-                        Blank_(blankchild: Column(), colour: activeBlankColor)),
+                  child: Cards(
+                      blankchild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "WEIGHT",
+                            style: klableTextstyle,
+                          ),
+                          Text(
+                            weight.toString(),
+                            style: knumLblTextstyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                baktygul: () {
+                                  setState(() {
+                                    weight--;
+                                  });
+                                },
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.plus,
+                                baktygul: () {
+                                  setState(() {
+                                    weight++;
+                                  });
+                                },
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                      colour: activeBlankColor),
+                ),
                 Expanded(
-                    child:
-                        Blank_(blankchild: Column(), colour: activeBlankColor)),
+                    child: Cards(
+                        blankchild: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "AGE",
+                              style: klableTextstyle,
+                            ),
+                            Text(
+                              age.toString(),
+                              style: knumLblTextstyle,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                RoundIconButton(
+                                  icon: FontAwesomeIcons.minus,
+                                  baktygul: () {
+                                    setState(() {
+                                      age--;
+                                    });
+                                  },
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                RoundIconButton(
+                                  icon: FontAwesomeIcons.plus,
+                                  baktygul: () {
+                                    setState(() {
+                                      age++;
+                                    });
+                                  },
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        colour: activeBlankColor)),
               ],
             ),
           ),
-          Container(
-              color: const Color.fromARGB(255, 241, 240, 237),
-              margin: const EdgeInsets.only(top: 15.0),
-              width: double.infinity,
-              height: bottomContainerHeight,
-              child: const Center(
-                  child: Text(
-                "Calculate",
-                style: TextStyle(color: Colors.black, fontSize: 35),
-              )))
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Resultpage()));
+            },
+            child: Container(
+                color: const Color.fromARGB(255, 172, 59, 166),
+                margin: const EdgeInsets.only(top: 15.0),
+                width: double.infinity,
+                height: bottomContainerHeight,
+                child: const Center(
+                    child: Text(
+                  "Calculate",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 36, 9, 9),
+                    fontSize: 35,
+                  ),
+                ))),
+          )
         ],
       ),
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  const RoundIconButton(
+      {super.key, required this.icon, required this.baktygul});
+
+  final IconData icon;
+  final VoidCallback baktygul;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: baktygul,
+      elevation: 10.0,
+      constraints: const BoxConstraints.tightFor(width: 56.0, height: 56.0),
+      shape: const CircleBorder(),
+      fillColor: const Color.fromARGB(255, 159, 168, 214),
+      child: Icon(icon),
     );
   }
 }
