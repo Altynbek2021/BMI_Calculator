@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/constants.dart';
 import 'package:flutter/material.dart';
 
 class GenderForm extends StatelessWidget {
@@ -21,10 +22,7 @@ class GenderForm extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        Text(
-          genderChoice,
-          style: const TextStyle(color: Colors.black, fontSize: 29),
-        )
+        Text(genderChoice, style: klableTextstyle)
       ],
     );
   }

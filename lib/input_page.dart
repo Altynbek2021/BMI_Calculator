@@ -1,11 +1,8 @@
 import 'package:bmi_calculator/blank_widget.dart';
+import 'package:bmi_calculator/constants.dart';
 import 'package:bmi_calculator/icon_context.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-const bottomContainerHeight = 80.0;
-const activeBlankColor = Color.fromARGB(255, 82, 90, 131);
-const inactiveBlankColor = Color.fromARGB(255, 33, 40, 73);
 
 enum Gender { male, female, kod }
 
@@ -15,6 +12,8 @@ class InputPage extends StatefulWidget {
   @override
   State<InputPage> createState() => _InputPageState();
 }
+
+int height = 160;
 
 class _InputPageState extends State<InputPage> {
   Gender selectedGender = Gender.male;
@@ -31,6 +30,7 @@ class _InputPageState extends State<InputPage> {
         centerTitle: true,
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
             //firs ROW
@@ -75,8 +75,41 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ), ////////////// Top gender Select area
-          const Expanded(
-              child: Blank_(blankchild: Column(), colour: inactiveBlankColor)),
+          Expanded(
+              child: Blank_(
+                  blankchild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Height",
+                        style: klableTextstyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text(
+                            height.toString(),
+                            style: knumLblTextstyle,
+                          ),
+                          Text("cm", style: klableTextstyle)
+                        ],
+                      ),
+                      Slider(
+                        value: height.toDouble(),
+                        onChanged: (double newValue) {
+                          setState(() {
+                            height = newValue.round();
+                          });
+                        },
+                        min: 120.0,
+                        max: 220.0,
+                        activeColor: Colors.black,
+                      )
+                    ],
+                  ),
+                  colour: activeBlankColor)),
           const Expanded(
             child: Row(
               children: [
