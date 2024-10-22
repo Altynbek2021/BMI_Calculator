@@ -1,6 +1,7 @@
 import 'package:bmi_calculator/components/blank_widget.dart';
 import 'package:bmi_calculator/components/bottom_button.dart';
 import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/pages/input_page.dart';
 import 'package:flutter/material.dart';
 
 class Resultpage extends StatelessWidget {
@@ -8,10 +9,12 @@ class Resultpage extends StatelessWidget {
       {super.key,
       required this.bmiResult,
       required this.resultText,
-      required this.interpretation});
+      required this.interpretation,
+      required this.gender});
   final String bmiResult;
   final String resultText;
   final String interpretation;
+  final Gender gender;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,7 @@ class Resultpage extends StatelessWidget {
                         style: kBMItextStyle,
                       ),
                       Text(
-                        interpretation,
+                        'Dear ${gender == Gender.female ? 'Miss' : "Mister"} $interpretation',
                         textAlign: TextAlign.center,
                         style: kBodyTextstyle,
                       )
