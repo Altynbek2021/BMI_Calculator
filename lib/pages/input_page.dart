@@ -1,7 +1,9 @@
-import 'package:bmi_calculator/ResultPage.dart';
-import 'package:bmi_calculator/blank_widget.dart';
+import 'package:bmi_calculator/components/bottom_button.dart';
+import 'package:bmi_calculator/components/blank_widget.dart';
+import 'package:bmi_calculator/components/round_icon.dart';
 import 'package:bmi_calculator/constants.dart';
-import 'package:bmi_calculator/icon_context.dart';
+import 'package:bmi_calculator/components/icon_context.dart';
+import 'package:bmi_calculator/pages/ResultPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -132,9 +134,10 @@ class _InputPageState extends State<InputPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              RoundIconButton(
+                              RoundedIconButton(
                                 icon: FontAwesomeIcons.minus,
                                 baktygul: () {
+                                  if (weight <= 0) return;
                                   setState(() {
                                     weight--;
                                   });
@@ -143,7 +146,7 @@ class _InputPageState extends State<InputPage> {
                               const SizedBox(
                                 width: 20,
                               ),
-                              RoundIconButton(
+                              RoundedIconButton(
                                 icon: FontAwesomeIcons.plus,
                                 baktygul: () {
                                   setState(() {
@@ -173,9 +176,10 @@ class _InputPageState extends State<InputPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                RoundIconButton(
+                                RoundedIconButton(
                                   icon: FontAwesomeIcons.minus,
                                   baktygul: () {
+                                    if (age <= 0) return;
                                     setState(() {
                                       age--;
                                     });
@@ -184,7 +188,7 @@ class _InputPageState extends State<InputPage> {
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                RoundIconButton(
+                                RoundedIconButton(
                                   icon: FontAwesomeIcons.plus,
                                   baktygul: () {
                                     setState(() {
@@ -200,47 +204,15 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: () {
+          Bottom_button(
+            nextpage: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const Resultpage()));
             },
-            child: Container(
-                color: const Color.fromARGB(255, 172, 59, 166),
-                margin: const EdgeInsets.only(top: 15.0),
-                width: double.infinity,
-                height: bottomContainerHeight,
-                child: const Center(
-                    child: Text(
-                  "Calculate",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 36, 9, 9),
-                    fontSize: 35,
-                  ),
-                ))),
+            buttomTitle: 'CALCULATE',
           )
         ],
       ),
-    );
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-  const RoundIconButton(
-      {super.key, required this.icon, required this.baktygul});
-
-  final IconData icon;
-  final VoidCallback baktygul;
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      onPressed: baktygul,
-      elevation: 10.0,
-      constraints: const BoxConstraints.tightFor(width: 56.0, height: 56.0),
-      shape: const CircleBorder(),
-      fillColor: const Color.fromARGB(255, 159, 168, 214),
-      child: Icon(icon),
     );
   }
 }
