@@ -1,5 +1,6 @@
 import 'package:bmi_calculator/components/bottom_button.dart';
 import 'package:bmi_calculator/components/blank_widget.dart';
+import 'package:bmi_calculator/components/calculator_brain.dart';
 import 'package:bmi_calculator/components/round_icon.dart';
 import 'package:bmi_calculator/constants.dart';
 import 'package:bmi_calculator/components/icon_context.dart';
@@ -206,8 +207,18 @@ class _InputPageState extends State<InputPage> {
           ),
           Bottom_button(
             nextpage: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Resultpage()));
+              CalculatorBrain calc =
+                  CalculatorBrain(heiight: height, weiight: weight);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Resultpage(
+                    bmiResult: calc.calculateBMI(),
+                    resultText: calc.getResult(),
+                    interpretation: calc.getInterpretation(),
+                  ),
+                ),
+              );
             },
             buttomTitle: 'CALCULATE',
           )

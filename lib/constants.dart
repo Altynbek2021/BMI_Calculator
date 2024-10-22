@@ -13,6 +13,6 @@ const ktitleLblstyle = TextStyle(
 const kTextstyle =
     TextStyle(color: Colors.green, fontWeight: FontWeight.bold, fontSize: 22.0);
 const kBMItextStyle =
-    TextStyle(color: Colors.white, fontSize: 100, fontWeight: FontWeight.bold);
+    TextStyle(color: Colors.white, fontSize: 80, fontWeight: FontWeight.bold);
 const kBodyTextstyle =
     TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold);

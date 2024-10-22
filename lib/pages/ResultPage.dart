@@ -4,15 +4,22 @@ import 'package:bmi_calculator/constants.dart';
 import 'package:flutter/material.dart';
 
 class Resultpage extends StatelessWidget {
-  const Resultpage({super.key});
+  const Resultpage(
+      {super.key,
+      required this.bmiResult,
+      required this.resultText,
+      required this.interpretation});
+  final String bmiResult;
+  final String resultText;
+  final String interpretation;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Result Page",
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          "BMI Result",
+          style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color.fromARGB(255, 82, 90, 131),
         centerTitle: true,
@@ -24,12 +31,12 @@ class Resultpage extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 alignment: Alignment.bottomLeft,
                 child: const Text("Your Result", style: ktitleLblstyle),
               ),
             ),
-            const Expanded(
+            Expanded(
               flex: 5,
               child: Cards(
                   colour: activeBlankColor,
@@ -37,15 +44,17 @@ class Resultpage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        "Normal",
+                        bmiResult,
+                        maxLines: 1,
                         style: kTextstyle,
                       ),
                       Text(
-                        "18.5",
+                        resultText,
+                        maxLines: 1,
                         style: kBMItextStyle,
                       ),
                       Text(
-                        "Your BMI result quit low, you shoud eat more and go to the GYM",
+                        interpretation,
                         textAlign: TextAlign.center,
                         style: kBodyTextstyle,
                       )
